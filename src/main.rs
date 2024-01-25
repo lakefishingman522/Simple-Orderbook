@@ -100,7 +100,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let now = Utc::now();
     println!(
         "{}",
-        now.format("%Y-%m-%dT%H:%M:%S%.6fZ")
+        now.format("================== Result of %Y-%m-%dT%H:%M:%S%.6fZ ==================")
             .to_string()
             .bright_green()
             .bold()
@@ -110,9 +110,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Calculate selling price
     let price_to_sell = calculate_price(&mut merged_bids, 10.0);
+
     println!(
-        "Price to sell 10 BTC across selected markets: {}",
-        price_to_sell
+        "{}",
+        format!(
+            "Price to sell 10 BTC across selected markets: {}",
+            price_to_sell
+        )
+        .bright_yellow()
     );
 
     // Merge order books and order by price ascending for asks
@@ -135,8 +140,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Calculate buying price
     let price_to_buy = calculate_price(&mut merged_asks, 10.0);
     println!(
-        "Price to buy 10 BTC across selected markets: {}",
-        price_to_buy
+        "{}",
+        format!(
+            "Price to  buy 10 BTC across selected markets: {}",
+            price_to_buy
+        )
+        .yellow()
     );
 
     Ok(())
