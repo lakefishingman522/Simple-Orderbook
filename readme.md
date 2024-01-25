@@ -44,6 +44,7 @@ cargo test
 ```
 
 This will display the results of the test code's execution
+
 ![Oops!](./refer/tests.png)
 
 ```bash
@@ -55,6 +56,7 @@ This will open a selection console. Select at least one market to fetch data fro
 ![Oops!](./refer/selection.png)
 
 After making selections and processing the data, results will be as displayed below:
+
 ![Oops!](./refer/result.png)
 
 ## Great!
