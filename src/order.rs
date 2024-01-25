@@ -126,3 +126,74 @@ impl From<KrakenResult> for OrderBook {
         OrderBook { bids, asks }
     }
 }
+
+// coinbase's response format and api are
+
+// {
+//     "bids": [
+//         [
+//             "39982.8",
+//             "0.01884514",
+//             1
+//         ],
+//         ...
+//     ],
+//     "asks": [
+//         [
+//             "39985.08",
+//             "0.07946493",
+//             1
+//         ],
+//         ...
+//     ],
+//     "sequence": 72011663386,
+//     "auction_mode": false,
+//     "auction": null,
+//     "time": "2024-01-24T15:32:52.961744Z"
+// }
+
+// Gemini's response format and restapi are
+// {
+//     "bids": [
+//         {
+//             "price": "39950.0",
+//             "amount": "0.00011063",
+//             "timestamp": "1706112724"
+//         },
+//         {
+//         ...
+//     ],
+//     "asks": [
+//         {
+//             "price": "39950.01",
+//             "amount": "0.10070212",
+//             "timestamp": "1706112724"
+//         },
+//         ...
+//     ],
+// }
+
+// Kraken's response format and restapi are
+// {
+//     "error": [],
+//     "result": {
+//         "XXBTZUSD": {
+//             "asks": [
+//                 [
+//                     "39971.30000",
+//                     "2.606",
+//                     1706112893
+//                 ],
+//                 ...
+//             ]
+//         },
+//         "bids": [
+//             [
+//                 "39971.20000",
+//                 "2.078",
+//                 1706112894
+//             ],
+//             ...
+//         ]
+//     }
+// }
