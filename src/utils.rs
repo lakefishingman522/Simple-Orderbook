@@ -8,7 +8,7 @@ pub fn calculate_price(order_book: &mut [Order], quantity: f64) -> f64 {
     let mut total_quantity = 0.0;
     let mut total_price = 0.0;
 
-    order_book.sort_by(|a, b| a.price.partial_cmp(&b.price).unwrap());
+    // order_book.sort_by(|a, b| a.price.partial_cmp(&b.price).unwrap());
 
     for order in order_book {
         if total_quantity + order.quantity >= quantity {
