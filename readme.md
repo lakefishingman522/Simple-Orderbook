@@ -54,7 +54,7 @@ After making selections and processing the data, results will be as displayed be
 
 ## Future Improvements:
 
-While this project is operational, I was restricted by time constraints during its development. There are several areas for potential improvements:
+This project served as a test task, during which I was personally bound by my time constraints. There are several areas for potential improvements:
 
 - **Real-time Data Analysis:** Currently, the project operates using data fetched from APIs—and it's static. By integrating WebSockets, we could display real-time data and provide a more accurate dynamic analysis.
 - **Market Strategy Algorithms:** With the availability of real-time data, we could build and integrate market strategy algorithms, enabling users to create and backtest their strategies and directly execute their trades.
