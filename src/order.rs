@@ -197,3 +197,106 @@ impl From<KrakenResult> for OrderBook {
 //         ]
 //     }
 // }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[tokio::test]
+    async fn test_calculate_merged_bids() {
+        // Example data for each exchange. Please use your actual data here.
+        let coinbase_order = CoinbaseOrder {
+            bids: vec![
+                ("40000".to_string(), "0.1".to_string(), 1),
+                ("39900".to_string(), "0.2".to_string(), 2),
+            ],
+            asks: vec![
+                ("40001".to_string(), "0.1".to_string(), 1),
+                ("39901".to_string(), "0.2".to_string(), 2),
+            ],
+        };
+
+        let gemini_order = GeminiOrder {
+            bids: vec![
+                GeminiBid {
+                    price: "40050".into(),
+                    amount: "0.2".into(),
+                },
+                GeminiBid {
+                    price: "39950".into(),
+                    amount: "0.2".into(),
+                },
+            ],
+            asks: vec![
+                GeminiBid {
+                    price: "40051".into(),
+                    amount: "1.2".into(),
+                },
+                GeminiBid {
+                    price: "39951".into(),
+                    amount: "1.2".into(),
+                },
+            ],
+        };
+
+        let mut kraken_data = HashMap::new();
+        kraken_data.insert(
+            "XXBTZUSD".into(),
+            KrakenPair {
+                bids: vec![
+                    ("40000".to_string(), "0.1".to_string(), 1),
+                    ("39900".to_string(), "0.2".to_string(), 2),
+                ],
+                asks: vec![
+                    ("40010".to_string(), "0.1".to_string(), 1),
+                    ("39910".to_string(), "0.2".to_string(), 2),
+                ],
+            },
+        );
+        let kraken_order = KrakenResult {
+            result: kraken_data,
+        };
+
+        // convert to OrderBook format
+        let coinbase_book: OrderBook = coinbase_order.into();
+        let gemini_book: OrderBook = gemini_order.into();
+        let kraken_order: OrderBook = kraken_order.into();
+
+        // Merge the bids
+        let mut merged_bids = coinbase_book.bids;
+        merged_bids.extend(gemini_book.bids);
+        merged_bids.extend(kraken_order.bids);
+
+        // Sort bids in descending order. If this is not your sorting order, please change accordingly.
+        merged_bids.sort_by(|a, b| b.price.partial_cmp(&a.price).unwrap());
+
+        // Verify merged by comparing to expected bids
+        let expected_merged_bids = vec![
+            Order {
+                price: 40050.0,
+                quantity: 0.2,
+            }, // From Gemini
+            Order {
+                price: 40000.0,
+                quantity: 0.1,
+            }, // From Coinbase
+            Order {
+                price: 40000.0,
+                quantity: 0.1,
+            }, // From Kraken
+            Order {
+                price: 39950.0,
+                quantity: 0.2,
+            }, // From Gemini
+            Order {
+                price: 39900.0,
+                quantity: 0.2,
+            }, // From Coinbase
+            Order {
+                price: 39900.0,
+                quantity: 0.2,
+            }, // From Kraken
+        ];
+
+        assert_eq!(merged_bids, expected_merged_bids, "Bids merging failed");
+    }
+}

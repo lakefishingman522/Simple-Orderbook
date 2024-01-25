@@ -40,6 +40,13 @@ Once Rust is installed, let's execute our program using cargo:
 ```bash
 git clone https://<your_git_token_here>@github.com/lakefishingman522/RustOrderBook.git
 cd RustOrderBook
+cargo test
+```
+
+This will display the results of the test code's execution
+![Oops!](./refer/tests.png)
+
+```bash
 cargo run
 ```
 
@@ -48,7 +55,7 @@ This will open a selection console. Select at least one market to fetch data fro
 ![Oops!](./refer/selection.png)
 
 After making selections and processing the data, results will be as displayed below:
-![Alt Text](./refer/result.png)
+![Oops!](./refer/result.png)
 
 ## Great!
 
@@ -56,7 +63,7 @@ After making selections and processing the data, results will be as displayed be
 
 This project served as a test task, during which I was personally bound by my time constraints. There are several areas for potential improvements:
 
-- **Real-time Data Analysis:** Currently, the project operates using data fetched from APIs—and it's static. By integrating WebSockets, we could display real-time data and provide a more accurate dynamic analysis.
+- **Real-time Data Analysis:** At present, the project processes data retrieved from APIs, which is static. However, with WebSocket integration, we can showcase real-time and more precisely dynamic data. To employ WebSockets, we must obtain an API key from the market website, allowing us to further extend this capability once the key is acquired.
 - **Market Strategy Algorithms:** With the availability of real-time data, we could build and integrate market strategy algorithms, enabling users to create and backtest their strategies and directly execute their trades.
 - **Expanded Data Sources:** We could add more exchanges to have a more diverse and precise overview of the market.
 - **Performance Improvements:** Improvements could be made in efficiency and speed, particularly in handling and processing data at scale.
