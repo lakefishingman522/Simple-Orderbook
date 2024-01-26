@@ -1,5 +1,6 @@
 #[derive(Debug, Clone, PartialEq)]
 pub struct Order {
+    pub exchange_name: String,
     pub price: f64,
     pub quantity: f64,
 }
